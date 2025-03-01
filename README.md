@@ -41,7 +41,41 @@ Make sure you have the following installed:
 
 ## 🚀 Installation  
 
-### 1. Clone the Repository  
-```bash
-git clone https://github.com/votre-nom/laravel-flowbite.git
-cd laravel-flowbite
+### 1. Clone the Repository 
+    git clone https://github.com/votre-nom/laravel-flowbite.git
+    cd laravel-flowbite
+
+### 2. Installer les dépendances:
+    composer install
+    npm install
+
+### 3. Configurer l'environnement:
+    cp .env.example .env
+    php artisan key:generate
+
+### 4. Configurer la base de données:
+
+- Modifier le fichier .env avec vos informations de base de données
+- Pour SQLite:
+  
+      touch database/database.sqlite
+
+### 5. Migrer et peupler la base de données:
+bash
+    php artisan migrate --seed
+
+### 6. Compiler les assets:
+bash
+    npm run dev
+
+### 7. Démarrer le serveur:
+bash
+    php artisan serve
+
+8. Accéder à l'application:
+    - URL: http://localhost:8000
+    - Identifiants par défaut:
+        - Super Admin: superadmin@example.com / password123
+        - Admin: admin@example.com / password123
+
+
