@@ -1,10 +1,10 @@
-# Laravel Flowbite Dashboard
+# Laravel Flowbite Dashboard 
 
 <div align="center">
-  <img src="public/android-icon-96x96.png" alt="Laravel Flowbite Logo" width="96" height="96">
+  <img src="msedge_25xFG9kSQd.png" alt="Laravel Flowbite Logo" width="96" height="96">
 </div>
 
-A modern dashboard built with Laravel and Flowbite, featuring complete authentication and role management.
+A modern and easy-to-use Laravel starter kit with Flowbite UI components. Get started quickly with pre-built authentication, role management, and a beautiful dashboard interface. Perfect for developers looking to jumpstart their Laravel projects with a clean, responsive design.
 
 ## Features
 
