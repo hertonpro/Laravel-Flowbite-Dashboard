@@ -76,8 +76,8 @@ php artisan serve
 
 ## Default Accounts
 
--   Admin: admin@example.com / password
--   User: user@example.com / password
+-   Admin: admin@example.com / password123
+-   User: user@example.com / password123
 
 ## Key Features
 
