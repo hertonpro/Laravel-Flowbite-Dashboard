@@ -1,6 +1,7 @@
 # Laravel Flowbite Dashboard 
 
-  <img src="msedge_25xFG9kSQd.png" alt="Laravel Flowbite>
+
+  <img src="msedge_25xFG9kSQd.png" alt="Laravel Flowbite />
 
 A modern and easy-to-use Laravel starter kit with Flowbite UI components. Get started quickly with pre-built authentication, role management, and a beautiful dashboard interface. Perfect for developers looking to jumpstart their Laravel projects with a clean, responsive design.
 
