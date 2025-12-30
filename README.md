@@ -10,20 +10,22 @@ A **modern** and **easy-to-use** Laravel starter kit integrated with Flowbite UI
 ---
 
 ## 🌟 Features  
-- 🔐 **Complete Authentication** (Login, Register, Reset Password)  
+- 🔐 **Complete Authentication** (Login, Register, Reset Password with Email Recovery)  
 - 🎨 **Modern UI** with Flowbite and Tailwind CSS  
 - 🌓 **Dark/Light Mode** support with synchronized theme management
 - 👥 **Advanced Role and Permission Management** with automated permission generation
 - 📱 **Responsive Design** for all devices  
 - 🔔 **Notification System**  
-- 📊 **Reactive Dashboard** with a modern look
+- 📊 **Native Analytics System** with real-time data collection and dashboard metrics
 - 🌍 **Multi-language Support** (English/French) with complete translation system
 - 👤 **User Management CRUD** (Create, Read, Update, Delete users with role assignment)
 - 📝 **Blog Management System** with rich text editor and image upload
 - ⚙️ **Unified Settings Interface** (Profile, Password, Appearance in one page)
 - 🤖 **Automated Permission System** for controller creation and synchronization
 - 📸 **Advanced File Management** with image upload and storage linking
-- ✨ **Rich Text Editor** (Quill.js) with formatting tools and inline image upload  
+- ✨ **Rich Text Editor** (Quill.js) with formatting tools and inline image upload
+- 📈 **Real-time Analytics Dashboard** with page views, user activities, and content statistics
+- 📧 **SMTP Email System** with password reset functionality  
 
 ---
 
@@ -40,6 +42,20 @@ A **modern** and **easy-to-use** Laravel starter kit integrated with Flowbite UI
 ---
 
 ## 🎯 Key Components Added
+
+### 📈 **Native Analytics System**
+- **Real-time Data Collection**: Automatic tracking via middleware
+- **4 Analytics Tables**: page_views, daily_metrics, user_activities, content_stats
+- **Live Dashboard**: Real metrics displayed in admin dashboard
+- **Performance Tracking**: Page views, unique visitors, user activities
+- **Content Analytics**: Track blog views and engagement
+- **Automated Metrics**: Daily aggregation and reporting
+
+### 📧 **Email System & Password Recovery**
+- **SMTP Integration**: Full email sending capability with SSL/TLS
+- **Password Reset**: Secure token-based password recovery
+- **Email Templates**: Beautiful responsive email templates
+- **Multi-provider Support**: Compatible with various SMTP providers
 
 ### 🌍 **Translation System**
 - Complete bilingual support (English/French)
@@ -65,6 +81,7 @@ A **modern** and **easy-to-use** Laravel starter kit integrated with Flowbite UI
 - **Status Management**: Draft, Published, Archived states
 - **SEO Friendly**: Automatic slug generation with uniqueness
 - **Featured Images**: Upload and manage blog cover images
+- **Analytics Integration**: Track blog views and engagement
 
 ### ⚙️ **Settings Management**
 - **Unified Interface**: All settings in one page with navigation tabs
@@ -76,7 +93,8 @@ A **modern** and **easy-to-use** Laravel starter kit integrated with Flowbite UI
 - **Controller Creation**: `make:admin-controller` command with auto-permissions
 - **Permission Sync**: Automatic permission detection and creation
 - **Slug Generation**: Unique slug creation for blogs
-- **File Storage**: Automatic storage linking and management  
+- **File Storage**: Automatic storage linking and management
+- **Analytics Tracking**: Automatic data collection via middleware  
 
 ---
 
@@ -110,33 +128,47 @@ Make sure you have the following installed:
   
       touch database/database.sqlite
 
-### 5. Migrer et peupler la base de données:
+### 6. Configurer l'email (Optionnel):
+
+Pour activer l'envoi d'emails (récupération de mot de passe, notifications):
+
+```env
+MAIL_MAILER=smtp
+MAIL_HOST=your-smtp-host.com
+MAIL_PORT=465
+MAIL_USERNAME=your-email@domain.com
+MAIL_PASSWORD=your-password
+MAIL_ENCRYPTION=ssl
+MAIL_FROM_ADDRESS="your-email@domain.com"
+MAIL_FROM_NAME="${APP_NAME}"
+```
+
+### 7. Migrer et peupler la base de données:
 ```bash
 php artisan migrate --seed
 ```
 
-### 6. Créer le lien symbolique pour le stockage:
+### 8. Créer le lien symbolique pour le stockage:
 ```bash
 php artisan storage:link
 ```
 
-### 7. Compiler les assets:
+### 9. Compiler les assets:
 ```bash
 npm run dev
 ```
 
-### 8. (Optionnel) Synchroniser les permissions:
+### 10. (Optionnel) Synchroniser les permissions:
 ```bash
 php artisan permission:sync
 ```
 
-### 9. Démarrer le serveur:
-### 9. Démarrer le serveur:
+### 11. Démarrer le serveur:
 ```bash
 php artisan serve
 ```
 
-### 10. Accéder à l'application:
+### 12. Accéder à l'application:
 - **URL**: http://localhost:8000
 - **Identifiants par défaut**:
   - Super Admin: superadmin@example.com / password123
@@ -148,10 +180,26 @@ php artisan serve
 
 ### 📊 **Dashboard Access**
 Navigate to the admin dashboard to access all management features:
+- **Analytics Overview**: View real-time metrics, page views, and user activities
 - **Users Management**: Create, edit, and manage user accounts
 - **Blog Management**: Create and publish blog posts with rich content
 - **Permission Management**: Assign roles and manage permissions
 - **Settings**: Configure profile, password, and appearance
+- **Reports**: Access detailed analytics and reporting tools
+
+### 📈 **Analytics Features**
+1. **Real-time Dashboard**: View live metrics on page views, visitors, and activities
+2. **Automatic Tracking**: All user interactions are automatically tracked
+3. **Performance Metrics**: Monitor site performance and user engagement
+4. **Content Analytics**: Track blog post views and popularity
+5. **Export Reports**: Generate and export analytics data
+
+### 📧 **Password Recovery**
+1. Go to login page and click "Mot de passe oublié ?"
+2. Enter your email address
+3. Check your email for the reset link
+4. Follow the link to set a new password
+5. Login with your new credentials
 
 ### ✍️ **Creating Blog Posts**
 1. Go to **Blogs** → **New Blog**
@@ -210,24 +258,49 @@ app/
 ├── Console/Commands/          # Custom Artisan commands
 │   ├── MakeAdminController.php
 │   └── SyncPermissions.php
-├── Http/Controllers/Admin/    # Admin controllers
-│   ├── BlogController.php
-│   ├── UserController.php
-│   ├── PermissionController.php
-│   └── SettingController.php
-└── Models/
-    ├── Blog.php
-    └── User.php
+├── Http/
+│   ├── Controllers/Admin/     # Admin controllers
+│   │   ├── BlogController.php
+│   │   ├── UserController.php
+│   │   ├── PermissionController.php
+│   │   ├── ReportsController.php
+│   │   └── SettingController.php
+│   └── Middleware/            # Custom middleware
+│       ├── TrackPageViews.php
+│       ├── TrackUserActivity.php
+│       └── TrackContentViews.php
+├── Models/
+│   ├── Blog.php
+│   ├── User.php
+│   └── Analytics/             # Analytics models
+│       ├── PageView.php
+│       ├── DailyMetric.php
+│       ├── UserActivity.php
+│       └── ContentStat.php
+└── Services/
+    └── AnalyticsService.php   # Analytics service
 
 resources/
-├── views/admin/               # Admin interface views
-│   ├── blogs/                 # Blog management
-│   ├── users/                 # User management
-│   ├── permissions/           # Permission management
-│   └── settings/              # Settings interface
+├── views/
+│   ├── admin/                 # Admin interface views
+│   │   ├── blogs/             # Blog management
+│   │   ├── users/             # User management
+│   │   ├── permissions/       # Permission management
+│   │   ├── reports/           # Analytics reports
+│   │   └── settings/          # Settings interface
+│   └── auth/                  # Authentication views
+│       ├── login.blade.php
+│       ├── register.blade.php
+│       ├── forgot-password.blade.php
+│       └── reset-password.blade.php
 └── lang/                      # Translation files
     ├── en.json
     └── fr.json
+
+database/
+└── migrations/
+    ├── create_analytics_tables.php
+    └── ...other migrations
 ```
 
 
