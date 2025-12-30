@@ -43,4 +43,17 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    /**
+     * Relations
+     */
+    public function blogs()
+    {
+        return $this->hasMany(Blog::class);
+    }
+
+    public function activities()
+    {
+        return $this->hasMany(\App\Models\Analytics\UserActivity::class);
+    }
 }

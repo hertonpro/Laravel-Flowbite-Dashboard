@@ -7,11 +7,60 @@ window.Alpine = Alpine;
 // Configuration du mode sombre
 document.addEventListener("alpine:init", () => {
     Alpine.data("darkMode", () => ({
-        darkMode: localStorage.getItem("darkMode") === "true",
+        darkMode: (() => {
+            // Récupérer le thème depuis la session Laravel (passé via meta tag)
+            const sessionTheme = document
+                .querySelector('meta[name="theme"]')
+                ?.getAttribute("content");
+            const savedTheme =
+                localStorage.getItem("theme") || sessionTheme || "system";
+
+            if (savedTheme === "system") {
+                return window.matchMedia("(prefers-color-scheme: dark)")
+                    .matches;
+            }
+            return savedTheme === "dark";
+        })(),
+        theme:
+            localStorage.getItem("theme") ||
+            document
+                .querySelector('meta[name="theme"]')
+                ?.getAttribute("content") ||
+            "system",
+
         init() {
-            this.$watch("darkMode", (val) =>
-                localStorage.setItem("darkMode", val)
-            );
+            this.$watch("darkMode", (val) => {
+                localStorage.setItem("darkMode", val);
+                if (this.theme === "system") {
+                    // Ne pas sauvegarder dans localStorage si c'est le système qui décide
+                    return;
+                }
+                localStorage.setItem("theme", val ? "dark" : "light");
+            });
+
+            // Écouter les changements de préférences système
+            if (this.theme === "system") {
+                window
+                    .matchMedia("(prefers-color-scheme: dark)")
+                    .addEventListener("change", (e) => {
+                        this.darkMode = e.matches;
+                    });
+            }
+        },
+
+        setTheme(newTheme) {
+            this.theme = newTheme;
+            localStorage.setItem("theme", newTheme);
+
+            if (newTheme === "system") {
+                this.darkMode = window.matchMedia(
+                    "(prefers-color-scheme: dark)"
+                ).matches;
+                localStorage.removeItem("darkMode");
+            } else {
+                this.darkMode = newTheme === "dark";
+                localStorage.setItem("darkMode", this.darkMode);
+            }
         },
     }));
 });

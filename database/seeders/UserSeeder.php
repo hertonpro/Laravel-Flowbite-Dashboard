@@ -27,20 +27,6 @@ class UserSeeder extends Seeder
         $admin->assignRole('admin');
 
         // Manager des Projets
-        $projectManager = User::create([
-            'name' => 'Manager Projets',
-            'email' => 'projets@example.com',
-            'password' => Hash::make('password123'),
-        ]);
-        $projectManager->assignRole('manager');
-        $projectManager->givePermissionTo([
-            'view projects',
-            'create projects',
-            'edit projects',
-            'delete projects',
-            'view reports'
-        ]);
-
         // Manager des Rapports
         $reportManager = User::create([
             'name' => 'Manager Rapports',
@@ -49,11 +35,13 @@ class UserSeeder extends Seeder
         ]);
         $reportManager->assignRole('manager');
         $reportManager->givePermissionTo([
+            'view blogs',
+            'create blogs',
+            'edit blogs',
             'view reports',
             'create reports',
             'edit reports',
-            'delete reports',
-            'view projects'
+            'delete reports'
         ]);
 
         // Éditeur de Contenu
@@ -64,8 +52,8 @@ class UserSeeder extends Seeder
         ]);
         $editor->assignRole('user');
         $editor->givePermissionTo([
-            'view projects',
-            'edit projects',
+            'view blogs',
+            'create blogs',
             'view reports',
             'create reports'
         ]);
@@ -78,9 +66,9 @@ class UserSeeder extends Seeder
         ]);
         $analyst->assignRole('user');
         $analyst->givePermissionTo([
+            'view blogs',
             'view reports',
-            'create reports',
-            'view projects'
+            'create reports'
         ]);
 
         // Utilisateur Standard
@@ -91,7 +79,7 @@ class UserSeeder extends Seeder
         ]);
         $standardUser->assignRole('user');
         $standardUser->givePermissionTo([
-            'view projects',
+            'view blogs',
             'view reports'
         ]);
 
@@ -103,7 +91,8 @@ class UserSeeder extends Seeder
         ]);
         $readOnlyUser->assignRole('user');
         $readOnlyUser->givePermissionTo([
-            'view projects'
+            'view blogs',
+            'view reports'
         ]);
     }
 }

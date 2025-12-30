@@ -21,11 +21,17 @@ class RolesAndPermissionsSeeder extends Seeder
             'edit users',
             'delete users',
 
-            // Permissions projets
-            'view projects',
-            'create projects',
-            'edit projects',
-            'delete projects',
+            // Permissions blogs
+            'view blogs',
+            'create blogs',
+            'edit blogs',
+            'delete blogs',
+
+            // Permissions permissions
+            'view permissions',
+            'create permissions',
+            'edit permissions',
+            'delete permissions',
 
             // Permissions rapports
             'view reports',
@@ -53,10 +59,14 @@ class RolesAndPermissionsSeeder extends Seeder
             'view users',
             'create users',
             'edit users',
-            'view projects',
-            'create projects',
-            'edit projects',
-            'delete projects',
+            'view blogs',
+            'create blogs',
+            'edit blogs',
+            'delete blogs',
+            'view permissions',
+            'create permissions',
+            'edit permissions',
+            'delete permissions',
             'view reports',
             'create reports',
             'edit reports',
@@ -68,9 +78,9 @@ class RolesAndPermissionsSeeder extends Seeder
         $managerRole = Role::create(['name' => 'manager']);
         $managerRole->givePermissionTo([
             'view users',
-            'view projects',
-            'create projects',
-            'edit projects',
+            'view blogs',
+            'create blogs',
+            'edit blogs',
             'view reports',
             'create reports',
             'edit reports',
@@ -80,7 +90,7 @@ class RolesAndPermissionsSeeder extends Seeder
         // Rôle Utilisateur
         $userRole = Role::create(['name' => 'user']);
         $userRole->givePermissionTo([
-            'view projects',
+            'view blogs',
             'view reports',
             'view settings'
         ]);
